@@ -3,6 +3,9 @@
  */
 package org.gotprint.assignment.usernotesmanagement.rest.advice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.ConstraintViolationException;
 
 import org.gotprint.assignment.usernotesmanagement.rest.response.ExceptionResponse;
@@ -10,15 +13,13 @@ import org.gotprint.assignment.usernotesmanagement.service_api.exception.Resourc
 import org.gotprint.assignment.usernotesmanagement.service_api.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * Global Application exception handler
@@ -36,7 +37,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  *
  */
 @RestControllerAdvice
-public class GlobalNotesManagementRestExceptionHandler{
+public class GlobalNotesManagementRestExceptionHandler {
 
 	Logger logger = LoggerFactory.getLogger(GlobalNotesManagementRestExceptionHandler.class);
 
@@ -47,7 +48,6 @@ public class GlobalNotesManagementRestExceptionHandler{
 		response.setErrorMessage(ex.getMessage());
 		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.NOT_FOUND);
 	}
-
 
 //	@Override
 //	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -62,10 +62,17 @@ public class GlobalNotesManagementRestExceptionHandler{
 	public ResponseEntity<ExceptionResponse> dataBindException(BindException ex) {
 		ExceptionResponse response = new ExceptionResponse();
 		response.setErrorCode("Constraint Violation");
-		response.setErrorMessage(ex.getMessage());
+		List<String> errors = new ArrayList<String>();
+		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+			errors.add(error.getField() + ": " + error.getDefaultMessage());
+		}
+		for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
+			errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+		}
+		response.setErrorMessage(errors.toString());
 		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ExceptionResponse> constraintViolationException(ConstraintViolationException ex) {
 		ExceptionResponse response = new ExceptionResponse();
