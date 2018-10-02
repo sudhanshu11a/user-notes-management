@@ -4,8 +4,9 @@
 package org.gotprint.assignment.usernotesmanagement.service_api.exception;
 
 /**
- * exception wrapping is to prevent the code in the business layer from having
- * to know about every possible exception in the system.
+ * This is Exception wrapping to prevent the code in the business layer and
+ * indicating the developers that the exception is thrown by service/business
+ * layer.
  * 
  * @author sudhanshusharma
  *

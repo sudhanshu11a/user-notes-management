@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * It is a User Service implementation for the userService. 
+ * 
  * @author sudhanshusharma
  *
  */

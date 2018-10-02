@@ -18,7 +18,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 /**
  * 
  * Security configuration of the application
- * Use
+ * 
  * 
  * @author sudhanshusharma
  *

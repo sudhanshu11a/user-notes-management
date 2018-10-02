@@ -4,6 +4,8 @@
 package org.gotprint.assignment.usernotesmanagement.rest.response;
 
 /**
+ * This is a Response object containing the Exception details. 
+ *   
  * @author sudhanshusharma
  *
  */

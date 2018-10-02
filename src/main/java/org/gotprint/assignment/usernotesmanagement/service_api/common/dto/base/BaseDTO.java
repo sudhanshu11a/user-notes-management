@@ -9,6 +9,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
+ * This is a Base Data transfer object.   
  * @author sudhanshusharma
  *
  */

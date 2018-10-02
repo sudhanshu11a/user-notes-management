@@ -6,6 +6,7 @@ package org.gotprint.assignment.usernotesmanagement.jpa.entity.base;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 /**
- * This is the base Entity class
+ * 
+ * A convenient base class for {@link Entity @Entity} classes that wish to
+ * provide default columns of every entity.
  * 
  * @author sudhanshusharma
  *

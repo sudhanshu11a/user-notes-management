@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 /**
+ * Note converter for converting the entity to dto and vice-versa
+ * 
  * @author sudhanshusharma
  *
  */

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * This is base converter interface for converting the Entity to DTO and vice-versa. 
+ * We have used the Transfer Object Pattern 
+ * 
  * @author sudhanshusharma
  *
  */

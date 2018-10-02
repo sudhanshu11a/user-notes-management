@@ -20,6 +20,8 @@ import org.gotprint.assignment.usernotesmanagement.jpa.repository.UserRepository
 import org.gotprint.assignment.usernotesmanagement.service_api.api.NoteService;
 
 /**
+ * It is a Note Service implementation for the note service. 
+ * 
  * @author sudhanshusharma
  *
  */

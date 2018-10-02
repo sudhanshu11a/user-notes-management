@@ -4,6 +4,9 @@
 package org.gotprint.assignment.usernotesmanagement.service_api.exception;
 
 /**
+ * Exception message indicating that there is no such resource which client is
+ * requesting.
+ * 
  * @author sudhanshusharma
  *
  */

@@ -12,6 +12,9 @@ import org.gotprint.assignment.usernotesmanagement.jpa.entity.base.BaseEntity;
 
 
 /**
+ * 
+ *  User is an entity class represents the user table in the db. 
+ * It Extends the baseEntity class for getting the default remaining columns.  
  * @author sudhanshusharma
  *
  */
