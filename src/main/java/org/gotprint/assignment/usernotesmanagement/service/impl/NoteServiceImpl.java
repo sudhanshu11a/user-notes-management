@@ -77,7 +77,7 @@ public class NoteServiceImpl implements NoteService {
 			note = noteRepository.saveAndFlush(note);
 			noteDTO = noteConverter.convertToDTO(note);
 		} catch (Exception ex) {
-			throw new ServiceException("Exception is createUserNote:", ex);
+			throw new ServiceException("Exception is getUserNoteDetail:", ex);
 		}
 		return noteDTO;
 	}
