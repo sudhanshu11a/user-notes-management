@@ -20,15 +20,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
-	List<Note> findByUserId(long userId);
+	@Query("SELECT n FROM Note n WHERE n.user.email = ?1")
+	List<Note> findByUserName(String username);
 
-	Note findByIdAndUserId(long id, long userId);
-
-	@Modifying
-	@Query("update Note n set n.title = ?1, n.note = ?2 where n.id = ?3 and n.userId = ?4")
-	int updateNote(String title, String note, long id, long userId);
+	@Query("SELECT n FROM Note n WHERE n.id = ?1 AND n.user.email = ?2")
+	Note findByIdAndUsername(long id, String username);
 
 	@Modifying
-	@Query("delete Note n where n.id = ?1 and n.userId = ?2")
-	int deleteByIdAndUserId(long id, long userId);
+	@Query("UPDATE Note n SET n.title = ?1, n.note = ?2 WHERE n.id = ?3 AND n.user.email = ?4")
+	int updateNote(String title, String note, long id, String username);
+
+	@Modifying
+	@Query("DELETE Note n WHERE n.id = ?1 AND n.user.email = ?2")
+	int deleteByIdAndUserId(long id, String username);
 }

@@ -3,15 +3,21 @@
  */
 package org.gotprint.assignment.usernotesmanagement.rest.advice;
 
+import javax.validation.ConstraintViolationException;
+
 import org.gotprint.assignment.usernotesmanagement.rest.response.ExceptionResponse;
 import org.gotprint.assignment.usernotesmanagement.service_api.exception.ResourceNotFoundException;
 import org.gotprint.assignment.usernotesmanagement.service_api.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -30,7 +36,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  *
  */
 @RestControllerAdvice
-public class GlobalNotesManagementRestExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalNotesManagementRestExceptionHandler{
 
 	Logger logger = LoggerFactory.getLogger(GlobalNotesManagementRestExceptionHandler.class);
 
@@ -42,13 +48,38 @@ public class GlobalNotesManagementRestExceptionHandler extends ResponseEntityExc
 		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.NOT_FOUND);
 	}
 
+
+//	@Override
+//	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+//			HttpHeaders headers, HttpStatus status, WebRequest request) {
+//		ExceptionResponse response = new ExceptionResponse();
+//		response.setErrorCode("Constraint Violation");
+//		response.setErrorMessage(ex.getMessage());
+//		return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
+//	}
+
+	@ExceptionHandler(BindException.class)
+	public ResponseEntity<ExceptionResponse> dataBindException(BindException ex) {
+		ExceptionResponse response = new ExceptionResponse();
+		response.setErrorCode("Constraint Violation");
+		response.setErrorMessage(ex.getMessage());
+		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ExceptionResponse> constraintViolationException(ConstraintViolationException ex) {
+		ExceptionResponse response = new ExceptionResponse();
+		response.setErrorCode("Constraint Violation");
+		response.setErrorMessage(ex.getMessage());
+		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(ServiceException.class)
 	public ResponseEntity<ExceptionResponse> serviceException(ServiceException ex) {
 		ExceptionResponse response = new ExceptionResponse();
-		response.setErrorCode("Some thing goes wrong with application services!");
+		response.setErrorCode("Some thing goes wrong with application services");
 		logger.error("ServiceException : ", ex);
-		response.setErrorMessage(
-				"Something goes wrong with application services, please contect the application owner");
+		response.setErrorMessage("Something goes wrong with application services due to " + ex.getMessage());
 		return new ResponseEntity<ExceptionResponse>(response, HttpStatus.EXPECTATION_FAILED);
 	}
 

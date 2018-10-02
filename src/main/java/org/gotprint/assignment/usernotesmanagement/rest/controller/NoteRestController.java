@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.gotprint.assignment.usernotesmanagement.service_api.api.NoteService;
 import org.gotprint.assignment.usernotesmanagement.service_api.common.dto.NoteDTO;
 import org.gotprint.assignment.usernotesmanagement.service_api.exception.ResourceNotFoundException;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/secure/user/notes")
 public class NoteRestController {
 
-	private long userId = 1l;
-
 	@Autowired
 	private NoteService noteService;
 
@@ -49,7 +50,8 @@ public class NoteRestController {
 
 	@GetMapping()
 	public List<NoteDTO> getUserNotes() {
-		List<NoteDTO> noteDTOs = noteService.getUserAllNotes(userId);
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<NoteDTO> noteDTOs = noteService.getUserAllNotes(username);
 		if (noteDTOs == null || noteDTOs.isEmpty()) {
 			throw new ResourceNotFoundException("No notes not found for current user!");
 		}
@@ -57,14 +59,19 @@ public class NoteRestController {
 	}
 
 	@PostMapping()
-	public NoteDTO saveUserNote( NoteDTO noteDTO) {
-		noteDTO = noteService.createUserNote(noteDTO, userId);
+	public NoteDTO saveUserNote(@Valid NoteDTO noteDTO) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		noteDTO = noteService.createUserNote(noteDTO, username);
+		if (noteDTO == null) {
+			throw new ResourceNotFoundException("Service is only for new Notes");
+		}
 		return noteDTO;
 	}
 
 	@GetMapping("/{id}")
 	public NoteDTO getUserNotedetails(@PathVariable("id") long noteId) {
-		NoteDTO noteDTO = noteService.getUserNoteDetail(noteId, userId);
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		NoteDTO noteDTO = noteService.getUserNoteDetail(noteId, username);
 		if (noteDTO == null) {
 			throw new ResourceNotFoundException("Note not found!");
 		}
@@ -72,8 +79,9 @@ public class NoteRestController {
 	}
 
 	@PutMapping("/{id}")
-	public NoteDTO updateUserNote(NoteDTO noteDTO, @PathVariable("id") long noteId) {
-		noteDTO = noteService.updateUserNote(noteDTO, userId);
+	public NoteDTO updateUserNote(@Valid NoteDTO noteDTO, @PathVariable("id") long noteId) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		noteDTO = noteService.updateUserNote(noteDTO, username);
 		if (noteDTO == null) {
 			throw new ResourceNotFoundException("Note not found!");
 		}
@@ -82,7 +90,8 @@ public class NoteRestController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> deleteUserNote(long noteId) {
-		boolean success = noteService.deleteUserNote(noteId, userId);
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		boolean success = noteService.deleteUserNote(noteId, username);
 		if(!success) {
 			throw new ResourceNotFoundException("Note not found!");
 		}

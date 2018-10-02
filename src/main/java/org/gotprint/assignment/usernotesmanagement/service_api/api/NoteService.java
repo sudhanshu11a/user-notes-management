@@ -16,13 +16,13 @@ public interface NoteService {
 	
 	List<NoteDTO> getAllNotes() throws ServiceException;
 
-	List<NoteDTO> getUserAllNotes(long userId) throws ServiceException;
+	List<NoteDTO> getUserAllNotes(String username) throws ServiceException;
 	
-	NoteDTO getUserNoteDetail(long noteId, long userId) throws ServiceException;
+	NoteDTO getUserNoteDetail(long noteId, String username) throws ServiceException;
 	
-	NoteDTO createUserNote(NoteDTO noteDTO, long userId) throws ServiceException;
+	NoteDTO createUserNote(NoteDTO noteDTO, String username) throws ServiceException;
 	
-	NoteDTO updateUserNote(NoteDTO noteDTO, long userId) throws ServiceException;
+	NoteDTO updateUserNote(NoteDTO noteDTO, String username) throws ServiceException;
 	
-	boolean deleteUserNote(long noteId, long userId) throws ServiceException;
+	boolean deleteUserNote(long noteId, String username) throws ServiceException;
 }
