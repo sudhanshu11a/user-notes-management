@@ -23,7 +23,7 @@ public class User extends BaseEntity{
 	private String email;
 
 	@Column(name = "password", nullable = false)
-	//@Size(min=8,  message = "The password field must be at least {min} characters")
+	@Size(min=8,  message = "The password field must be at least {min} characters")
 	private String password;
 
 	/**

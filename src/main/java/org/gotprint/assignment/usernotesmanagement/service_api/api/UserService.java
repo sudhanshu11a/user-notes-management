@@ -3,17 +3,13 @@
  */
 package org.gotprint.assignment.usernotesmanagement.service_api.api;
 
-import org.gotprint.assignment.usernotesmanagement.service_api.exception.ServiceException;
-import org.gotprint.assignment.usernotesmanagement.service_api.common.dto.UserDTO;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author sudhanshusharma
  *
  */
-public interface UserService 
+public interface UserService extends UserDetailsService
 {
 	
-	UserDTO createUser(UserDTO userDTO) throws ServiceException;
-	
-	UserDTO validateUser(UserDTO userDTO) throws ServiceException;
 }
