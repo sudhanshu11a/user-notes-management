@@ -3,24 +3,30 @@
  */
 package org.gotprint.assignment.usernotesmanagement.service_api.common.dto;
 
+import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
+
 import org.gotprint.assignment.usernotesmanagement.service_api.common.dto.base.BaseDTO;
 
 /**
  * @author sudhanshusharma
  *
  */
-public class NoteDTO extends BaseDTO{
+public class NoteDTO extends BaseDTO implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7718174244231513548L;
 
+	@NotNull
 	private String title;
 
+	@NotNull
 	private String note;
-	
-	//private Long userId;
+
+	// private Long userId;
 
 	/**
 	 * @return the title
@@ -63,6 +69,5 @@ public class NoteDTO extends BaseDTO{
 //	public void setUserId(Long userId) {
 //		this.userId = userId;
 //	}
-	
-	
+
 }

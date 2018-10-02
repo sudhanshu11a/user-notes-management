@@ -85,9 +85,8 @@ public class NoteServiceImpl implements NoteService {
 	@Override
 	public NoteDTO updateUserNote(NoteDTO noteDTO, long userId) throws ServiceException {
 		try {
-			int i = noteRepository.updateNote(noteDTO.getTitle(), noteDTO.getNote(), noteDTO.getId(),
-					userId);
-			if(i<1) {
+			int i = noteRepository.updateNote(noteDTO.getTitle(), noteDTO.getNote(), noteDTO.getId(), userId);
+			if (i < 1) {
 				noteDTO = null;
 			}
 		} catch (Exception ex) {
@@ -97,13 +96,18 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public void deleteUserNote(long noteId, long userId) throws ServiceException {
+	public boolean deleteUserNote(long noteId, long userId) throws ServiceException {
+		int affectedRows = 0;
+		boolean success = false;
 		try {
-			noteRepository.deleteByIdAndUserId(noteId, userId);
+			affectedRows = noteRepository.deleteByIdAndUserId(noteId, userId);
+			if (affectedRows > 0) {
+				success = true;
+			}
 		} catch (Exception ex) {
 			throw new ServiceException("Exception is deleteUserNote:", ex);
 		}
-
+		return success;
 	}
 
 }

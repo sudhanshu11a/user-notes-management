@@ -5,6 +5,9 @@ package org.gotprint.assignment.usernotesmanagement.jpa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -26,9 +29,9 @@ public class Note extends BaseEntity{
 	@Size(max=1000, message = "The field must be at max {max} characters")
 	private String note;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, insertable = false)
-//	private User user;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false, insertable = false)
+	private User user;
 
 	@Column(name = "user_id", nullable = false, insertable = true, updatable = true)
 	private long userId;
@@ -61,6 +64,20 @@ public class Note extends BaseEntity{
 	 */
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**

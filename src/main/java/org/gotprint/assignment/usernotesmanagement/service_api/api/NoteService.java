@@ -24,5 +24,5 @@ public interface NoteService {
 	
 	NoteDTO updateUserNote(NoteDTO noteDTO, long userId) throws ServiceException;
 	
-	void deleteUserNote(long noteId, long userId) throws ServiceException;
+	boolean deleteUserNote(long noteId, long userId) throws ServiceException;
 }
