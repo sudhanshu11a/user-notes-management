@@ -3,6 +3,7 @@
  */
 package org.gotprint.assignment.usernotesmanagement.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -12,7 +13,6 @@ import org.gotprint.assignment.usernotesmanagement.service_api.common.dto.NoteDT
 import org.gotprint.assignment.usernotesmanagement.service.converter.NoteConverter;
 import org.gotprint.assignment.usernotesmanagement.service_api.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Service;
 import org.gotprint.assignment.usernotesmanagement.jpa.entity.Note;
 import org.gotprint.assignment.usernotesmanagement.jpa.repository.NoteRepository;
@@ -20,7 +20,7 @@ import org.gotprint.assignment.usernotesmanagement.jpa.repository.UserRepository
 import org.gotprint.assignment.usernotesmanagement.service_api.api.NoteService;
 
 /**
- * It is a Note Service implementation for the note service. 
+ * It is a Note Service implementation for the note service.
  * 
  * @author sudhanshusharma
  *
@@ -56,7 +56,7 @@ public class NoteServiceImpl implements NoteService {
 		List<NoteDTO> noteDTOs = null;
 		List<Note> notes = null;
 		try {
-			notes = noteRepository.findByUserName(username);
+			notes = noteRepository.findByUserName(username.trim());
 			noteDTOs = noteConverter.convertToDTOList(notes);
 		} catch (Exception ex) {
 			throw new ServiceException("Exception in fetching all user notes.", ex);
@@ -69,7 +69,7 @@ public class NoteServiceImpl implements NoteService {
 		NoteDTO noteDTO = null;
 		Note note = null;
 		try {
-			note = noteRepository.findByIdAndUsername(noteId, username);
+			note = noteRepository.findByIdAndUsername(noteId, username.trim());
 			noteDTO = noteConverter.convertToDTO(note);
 		} catch (Exception ex) {
 			throw new ServiceException("Exception in fetching note : " + noteId, ex);
@@ -97,30 +97,31 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public NoteDTO updateUserNote(NoteDTO noteDTO, String username) throws ServiceException {
-		int affectedRows = 0;
 		try {
-			affectedRows = noteRepository.updateNote(noteDTO.getTitle(), noteDTO.getNote(), noteDTO.getId(), username);
-			if (affectedRows < 1) {
-				noteDTO = null;
+			Note note = noteRepository.findByIdAndUsername(noteDTO.getId(), username.trim());
+			if (note != null) {
+				Date createdDate = note.getCreatedDate();
+				note = noteConverter.convertToEntity(noteDTO);
+				note.setCreatedDate(createdDate);
+				note.setUserId(userRepository.findByEmail(username).getId());
+				noteRepository.saveAndFlush(note);
 			}
 		} catch (ConstraintViolationException ex) {
 			throw new ConstraintViolationException(ex.getConstraintViolations());
-		} catch(InvalidDataAccessResourceUsageException ex) {
-			noteDTO = null;
-		}catch (Exception ex) {
-			throw new ServiceException("Exception in updating User Note :"+ noteDTO.getId(), ex);
+		} catch (Exception ex) {
+			throw new ServiceException("Exception in updating User Note :" + noteDTO.getId(), ex);
 		}
 		return noteDTO;
 	}
 
 	@Override
 	public boolean deleteUserNote(long noteId, String username) throws ServiceException {
-		int affectedRows = 0;
 		boolean success = false;
 		try {
-			affectedRows = noteRepository.deleteByIdAndUserId(noteId, username);
-			if (affectedRows > 0) {
-				success = true;
+			Note note = noteRepository.findByIdAndUsername(noteId, username.trim());
+			if (note != null) {
+				noteRepository.delete(note);
+				success= true;
 			}
 		} catch (Exception ex) {
 			throw new ServiceException("Exception in deleting note :" + noteId, ex);

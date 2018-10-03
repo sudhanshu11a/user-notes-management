@@ -26,11 +26,4 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 	@Query("SELECT n FROM Note n WHERE n.id = ?1 AND n.user.email = ?2")
 	Note findByIdAndUsername(long id, String username);
 
-	@Modifying
-	@Query("UPDATE Note n SET n.title = ?1, n.note = ?2 WHERE n.id = ?3 AND n.user.email = ?4")
-	int updateNote(String title, String note, long id, String username);
-
-	@Modifying
-	@Query("DELETE Note n WHERE n.id = ?1 AND n.user.email = ?2")
-	int deleteByIdAndUserId(long id, String username);
 }

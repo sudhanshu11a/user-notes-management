@@ -29,8 +29,6 @@ public class NoteDTO extends BaseDTO implements Serializable{
 	@Size(max=1000, message = "The field must be at max {max} characters")
 	private String note;
 
-	// private Long userId;
-
 	/**
 	 * @return the title
 	 */
@@ -42,7 +40,7 @@ public class NoteDTO extends BaseDTO implements Serializable{
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.trim();
 	}
 
 	/**
@@ -56,21 +54,7 @@ public class NoteDTO extends BaseDTO implements Serializable{
 	 * @param note the note to set
 	 */
 	public void setNote(String note) {
-		this.note = note;
+		this.note = note.trim();
 	}
-
-//	/**
-//	 * @return the userId
-//	 */
-//	public Long getUserId() {
-//		return userId;
-//	}
-//
-//	/**
-//	 * @param userId the userId to set
-//	 */
-//	public void setUserId(Long userId) {
-//		this.userId = userId;
-//	}
 
 }
