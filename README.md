@@ -74,7 +74,7 @@ Please update credentials of database in the application.properties (/user-notes
 	* Java CLI
 	```
 		mvn package && java -jar target/user-notes-management-0.0.1-SNAPSHOT.jar
-		```
+	```
 
 	* IDE (Eclipse/IntelliJ)
 		Its much easier to run the Spring Boot app in eclipse. Select the project, Right Click and, move to Run As and click on Spring Boot App. Again, remember you need to select the project to get this option, not the pom file.
