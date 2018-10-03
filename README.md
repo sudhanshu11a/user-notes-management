@@ -7,8 +7,6 @@ This is RESTful APIs for accessing user's note.
 
 Build a RESTful API for a “notes” application using Spring Boot. Use MySql as your database to store the notes. Use a multilayered architecture.
 
-Duration: 3 hours
-
 Git:
 Please use Git as version control. Create a new project in your own GitHub account (if you don’t have an account, create one at github.com) and push the code to it. It is extremely important to commit often so we can see the history of the commits. We are going to judge the project by not only the end result, but also the history of the commits. Projects with only 2-3 commits will be rejected.
 
@@ -56,36 +54,55 @@ Please note that "Develop" branch contains the requirement code with HTTP basic 
 
 * Java 8 or higher : https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 * MySQL server version 5 or higher:
-MySQL server: https ://dev.mysql.com/downloads/mysql/
+MySQL server: https://dev.mysql.com/downloads/mysql/
 
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
 
 
+## Deployment
+Following are the three steps to run the application:r
+1) import sql :
+Import the sql in the mySQL server to create the database, tables and inserting the pre-defined users in the db. 
+Location of the sql file: /user-notes-management/src/main/resources/db/import.sql
 
-### Installing
+2) Update database credentials: 
+Please update credentials of database in the application.properties (/user-notes-management/src/main/resources/application.properties)
 
-1) import sql
-2) update credentials of database in the application.properties (/user-notes-management/src/main/resources/application.properties)
 3) Run Spring Boot Application using
 	* Java CLI
+	```
 		mvn package && java -jar target/user-notes-management-0.0.1-SNAPSHOT.jar
+	```
 
 	* IDE (Eclipse/IntelliJ)
 		Its much easier to run the Spring Boot app in eclipse. Select the project, Right Click and, move to Run As and click on Spring Boot App. Again, remember you need to select the project to get this option, not the pom file.
 
+## Default Users
+For convenience, following default users has been created through import.sql in the db for authenticating and testing REST APTs:
+
+1) Sudhanshu
+```
+Username/email: sudhanshu11a@gmail.com
+password: sudhanshu
+```
+
+2) Drew
+```
+Username/email: drew@gotprint.com
+password: drew
+```
+
+3) Prabhu
+```
+Username/email: prabhu@gotprint.com
+password: prabhu
+```
+
 ## REST APIs 
 
 Following are the REST API for performing CRUD operation on Note resource:
-
-###Getting all user notes details
-GET 
-/api/v1/secure/user/notes
-getUserNotes
-```
-curl -X GET "http://localhost:8085/api/v1/secure/user/notes" -H "accept: */*" --user sudhanshu11a@gmail.com:sudhanshu
-```
 
 ### Creating new note
 POST 
@@ -94,6 +111,16 @@ saveUserNote
 ```
 curl -X POST "http://localhost:8085/api/v1/secure/user/notes?note=First%20Note%20Description&title=First%20Note%20" -H "accept: */*" --user sudhanshu11a@gmail.com:sudhanshu
 ```
+
+### Getting all user notes details
+GET 
+/api/v1/secure/user/notes
+getUserNotes
+````
+curl -X GET "http://localhost:8085/api/v1/secure/user/notes" -H "accept: */*" --user sudhanshu11a@gmail.com:sudhanshu
+````
+
+
 ### Getting note details by note id 
 GET
 /api/v1/secure/user/notes/{id}
@@ -122,7 +149,7 @@ http://localhost:8085/swagger-ui.html
 ```
 ## Pending  
 Following can be enhanced in the application: 
-* Securing application from attacks ( eg. XSS attack, )
+* Securing application from attacks ( eg. XSS attack, Brute force, etc.)
 * JUNIT Cases
 * Multi-module architecture for more scalability
 * Stronger logging
@@ -131,7 +158,5 @@ Following can be enhanced in the application:
 
 **Sudhanshu Sharma** - [sudhanshu11a](https://github.com/sudhanshu11a)
 
-
-## Acknowledgments
 
 
