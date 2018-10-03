@@ -64,10 +64,15 @@ MySQL server: https://dev.mysql.com/downloads/mysql/
 
 
 
-### Installing
+### Deployment
+Following are the three steps to run the application:r
+1) import sql :
+Import the sql in the mySQL server to create the database, tables and inserting the pre-defined users in the db. 
+Location of the sql file: /user-notes-management/src/main/resources/db/import.sql
 
-1) import sql
-2) update credentials of database in the application.properties (/user-notes-management/src/main/resources/application.properties)
+2) Update database credentials: 
+Please update credentials of database in the application.properties (/user-notes-management/src/main/resources/application.properties)
+
 3) Run Spring Boot Application using
 	* Java CLI
 		mvn package && java -jar target/user-notes-management-0.0.1-SNAPSHOT.jar
