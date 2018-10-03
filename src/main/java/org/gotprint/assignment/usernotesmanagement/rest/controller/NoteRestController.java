@@ -89,7 +89,7 @@ public class NoteRestController {
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<Void> deleteUserNote(long noteId) {
+	public ResponseEntity<Void> deleteUserNote(@PathVariable("id") long noteId) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		boolean success = noteService.deleteUserNote(noteId, username);
 		if(!success) {
