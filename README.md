@@ -56,7 +56,7 @@ Please note that "Develop" branch contains the requirement code with HTTP basic 
 
 * Java 8 or higher : https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 * MySQL server version 5 or higher:
-MySQL server: https ://dev.mysql.com/downloads/mysql/
+MySQL server: https://dev.mysql.com/downloads/mysql/
 
 ## Built With
 
@@ -79,7 +79,7 @@ MySQL server: https ://dev.mysql.com/downloads/mysql/
 
 Following are the REST API for performing CRUD operation on Note resource:
 
-###Getting all user notes details
+### Getting all user notes details
 GET 
 /api/v1/secure/user/notes
 getUserNotes
