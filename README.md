@@ -83,22 +83,22 @@ Please update credentials of database in the application.properties (/user-notes
 For convenience, following default users has been created through import.sql in the db for authenticating and testing REST APTs:
 
 1) Sudhanshu
-'
+```
 Username/email: sudhanshu11a@gmail.com
 password: sudhanshu
-'
+```
 
 2) Drew
-'
+```
 Username/email: drew@gotprint.com
 password: drew
-'
+```
 
 3) Prabhu
-'
+```
 Username/email: prabhu@gotprint.com
 password: prabhu
-'
+```
 
 ## REST APIs 
 
