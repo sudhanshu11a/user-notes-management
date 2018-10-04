@@ -105,6 +105,8 @@ public class NoteServiceImpl implements NoteService {
 				note.setCreatedDate(createdDate);
 				note.setUserId(userRepository.findByEmail(username).getId());
 				noteRepository.saveAndFlush(note);
+			}else {
+				noteDTO = null;
 			}
 		} catch (ConstraintViolationException ex) {
 			throw new ConstraintViolationException(ex.getConstraintViolations());
