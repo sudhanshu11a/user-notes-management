@@ -45,49 +45,10 @@ Use OAuth 2.0 Bearer Tokens for authentication
 
 ## Getting Started
 
-
 This is a POC application on demonstrating the solution of #Requirement
 
-I build a standard CRUD based microservice, using Spring Boot and Maven, for exposing Note resource (RESTful Webservice), using an MySql datastore and the necessary steps you need to take to have automatically generated, nice looking, up to date, documentation for this service.
-
-The code for application can be found on my GitHub repository: https://github.com/sudhanshu11a/user-notes-management
-
-Please note that "Master" branch contains the requirement code with HTTP basic authentication. However, for Use OAuth 2.0 Bearer Tokens for authentication, a separate feature branch has been created.
-
-
-Description of classes used in the application: 
-1)	Entity
-	-	Note: Note is an entity class represents the note table in the db. It Extends the baseEntity class for getting the default remaining columns.
-	-	User: User is an entity class represents the user table in the db. It Extends the baseEntity class for getting the default remaining columns.  
-2)	Repository
-	-	NoteRepository: Contains all queries bind with Note Entity.
-	-	UserRepository: Contains all queries bind with user Entity
-
-3)	Service-api
-	-	NoteService: Contains the business contract of the note service 
-	-	UserService: Contains the business contract of the user service. It also extends the UserDetailsService interface, which loads user-specific data through spring security. 
-4)	Service
-	-	NoteServiceImpl: Contains the business logic corresponding to the contract mentioned in the noteservice 
-	-	UserServiceOmpl: Contains the business logic corresponding to the contract mentioned in the Userservice and UserDetailsService.
-5)	DTO
-	-	NoteDTO: Data transfer object for transferring note data from repository layer to web layer. 
-6)	Exception
-	-	ResourceNotFoundException: This exception indicating that requested resource is not found corresponding to the user. 
-	-	ServiceException: This exception indicate that the exception is from service layer. 
-7)	Converter
-	-	NoteConverter: This is the converter class for converting the entity to dto and vice-versa. ModelMapper has been used for auto conversion.
-8)	RestController
-	-	NoteRestController: This is the exposed RESTful web service for the resource Note. Front controller forwards all the requests starting from “api/v1/secure/user/notes/*” to this controller.  
-9)	Advice
-	-	GlobalNotesManagementRestExceptionHandler: This is a Global Application exception handler. All the exception are taken care by this class before sending response to client.  
-10)	Response: 
-	-	ExceptionResponse: In case of any exception, application wrap the exception code and message in this class to send the response to the client. 
-11)	Configuration
-	-	SecurityConfig: This is Web Security Configuration, used for authenticating all the requests using the Spring security.
-	-	SwaggerConfig: This is Swagger configuration for documentation, visualize and interact with the API’s resources without having any of the implementation logic in place. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption.
-	-	UserNotesManagementApplication: This is MAIN class for running the application using the Spring boot.
-12)	application.properties: Contains configuration properties of the application. 
-
+Please note that "Develop" branch contains the requirement code with HTTP basic authentication. However, for Use OAuth 2.0 Bearer Tokens for authentication, a separate feature branch has been created.
+ 
 
 ## Prerequisites
 
@@ -188,7 +149,7 @@ http://localhost:8085/swagger-ui.html
 ```
 ## Pending  
 Following can be enhanced in the application: 
-* Securing application from attacks ( eg. XSS attack, Brute force, etc..  )
+* Securing application from attacks ( eg. XSS attack, Brute force, etc.)
 * JUNIT Cases
 * Multi-module architecture for more scalability
 * Stronger logging
@@ -196,3 +157,4 @@ Following can be enhanced in the application:
 ## Authors
 
 **Sudhanshu Sharma** - [sudhanshu11a](https://github.com/sudhanshu11a)
+
