@@ -6,7 +6,6 @@ package org.gotprint.assignment.usernotesmanagement.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
 import org.gotprint.assignment.usernotesmanagement.service_api.common.dto.NoteDTO;
@@ -14,6 +13,7 @@ import org.gotprint.assignment.usernotesmanagement.service.converter.NoteConvert
 import org.gotprint.assignment.usernotesmanagement.service_api.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.gotprint.assignment.usernotesmanagement.jpa.entity.Note;
 import org.gotprint.assignment.usernotesmanagement.jpa.repository.NoteRepository;
 import org.gotprint.assignment.usernotesmanagement.jpa.repository.UserRepository;

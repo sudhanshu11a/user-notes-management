@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * It is a User Service implementation for the userService. 
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 
 	@Override
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(userName);
 		GrantedAuthority authority = new SimpleGrantedAuthority("USER");
