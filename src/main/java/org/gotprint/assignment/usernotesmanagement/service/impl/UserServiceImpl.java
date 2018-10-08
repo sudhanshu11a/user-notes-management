@@ -32,9 +32,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(userName);
+		if(user!=null) {
 		GrantedAuthority authority = new SimpleGrantedAuthority("USER");
 		UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 				Arrays.asList(authority));
 		return userDetails;
+		}
+		throw new UsernameNotFoundException(userName);
 	}
 }
