@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(userName);
 		if(user!=null) {
-		GrantedAuthority authority = new SimpleGrantedAuthority("USER");
+		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
 		UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 				Arrays.asList(authority));
 		return userDetails;

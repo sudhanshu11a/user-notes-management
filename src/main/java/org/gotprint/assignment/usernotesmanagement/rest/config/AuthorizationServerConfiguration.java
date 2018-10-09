@@ -60,6 +60,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
 		oauthServer.realm(REALM + "/client");
+		// we're allowing access to the token only for clients with 'ROLE_TRUSTED_CLIENT' authority
+        //.tokenKeyAccess("hasAuthority('ROLE_TRUSTED_CLIENT')")
+        //.checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
 	}
 
 }

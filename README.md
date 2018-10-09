@@ -102,7 +102,14 @@ password: prabhu
 
 ## REST APIs 
 
+For convenience, we may use the following URL for accessing all the REST APIs of the application using the following URL: 
+```
+http://localhost:8085/swagger-ui.html
+```
+## a) Basic HTTP Authentication.
+ 
 Following are the REST API for performing CRUD operation on Note resource:
+
 
 ### Creating new note
 POST 
@@ -147,10 +154,59 @@ For convenience, we may use the following URL for accessing all the REST APIs of
 ```
 http://localhost:8085/swagger-ui.html
 ```
+
+
+
+
+### OAuth 2.0 Bearer Tokens for authentication
+
+Following are the REST API for performing CRUD operation on Note resource:
+
+
+
+#### Endpoints and their purpose
+
+Attempt to access resources [REST API] without any authorization [will fail of-course].
+```
+curl -X GET "http://localhost:8085/api/v1/secure/user/notes"
+```
+
+Ask for tokens[access+refresh] using HTTP POST on /oauth/token, with grant_type=password,and resource owners credentials as req-params. Additionally, send client credentials in Authorization header.
+```
+curl -X POST "http://localhost:8085/oauth/token?grant_type=password&username=sudhanshu11a@gmail.com&password=sudhanshu" -H "Authorization: Basic bm90ZXMtY2xpZW50OnN1ZGhhbnNodQ=="
+```
+
+Please replace the below access_token with the new access_token generated above.
+
+### Creating new note
+```
+curl -X POST http://localhost:8085/api/v1/secure/user/notes?note=First%20Note%20Description&title=First%20Note%20&access_token=3525d0e4-d881-49e7-9f91-bcfd18259109
+```
+
+### Getting all user notes details
+```
+curl -X GET http://localhost:8085/api/v1/secure/user/notes?access_token=98308ce3-8fa1-4035-a124-b552a7db7164
+```
+
+
+### Getting note details by note id 
+```
+curl -X GET http://localhost:8085/api/v1/secure/user/notes/1?access_token=98308ce3-8fa1-4035-a124-b552a7db7164 
+```
+### Updating note by note id
+```
+curl -X PUT http://localhost:8085/api/v1/secure/user/notes/2?note=updated%20Note%20Content&title=updated%20Note%20Title%20&access_token=98308ce3-8fa1-4035-a124-b552a7db7164
+```
+### Deleting note by note id
+```
+curl -X DELETE http://localhost:8085/api/v1/secure/user/notes/1?access_token=98308ce3-8fa1-4035-a124-b552a7db7164
+```
+
+
 ## Pending  
 Following can be enhanced in the application: 
-* Securing application from attacks ( eg. XSS attack, Brute force, etc.)
-* JUNIT Cases
+* Securing application from attacks ( E.g. XSS attack, Brute force, etc.)
+* Complete UNIT Test Cases
 * Multi-module architecture for more scalability
 * Stronger logging
 
