@@ -158,5 +158,3 @@ Following can be enhanced in the application:
 
 **Sudhanshu Sharma** - [sudhanshu11a](https://github.com/sudhanshu11a)
 
-
-
